@@ -5,11 +5,23 @@ let grid;
 let width = 400;
 let height = 400;
 let resolution = 40;
+let running = false;
+
 function setup() {
     createCanvas(width, height); // this is hard coded
     grid = createCellGrid(width / resolution, height / resolution, resolution);
-    noLoop()
-    redraw()
+    buttonStart = createButton('start');
+    buttonStart.mousePressed(() => {
+        running = true;
+        loop();
+    })
+    buttonStop = createButton('stop');
+    buttonStop.mousePressed(() => {
+        running = false;
+        noLoop();
+    })
+    noLoop();
+    redraw();
 }
 
 function draw() {
@@ -36,7 +48,7 @@ function createCellGrid(rows, cols, dim) {
 }
 
 function mouseClicked() {
-    // mouseX mouseY
+    if (running) return;
     grid.forEach(row => {
         row.forEach(cell => {
             cell.clicked(mouseX, mouseY);
