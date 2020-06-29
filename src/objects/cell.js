@@ -28,12 +28,23 @@ class Cell {
     }
 
     clicked(x, y) {
+        if (this.isInside(x, y)) {
+            this.toggleLife();
+        }
+    }
+
+    dragged(x, y) {
+        if (this.isInside(x, y)) {
+            this.setLife(1);
+        }
+    }
+
+    isInside(x, y) {
         let startX = this.topLeft.x;
         let startY = this.topLeft.y;
-        let isInHor = (startX < x) && (x < startX + this.dim);
-        let isInVer = (startY < y) && (y < startY + this.dim);
-        if (isInHor && isInVer) {
-            this.toggleLife()
-        }
+        let result = true;
+        result = result && (startX < x) && (x < startX + this.dim);
+        result = result && (startY < y) && (y < startY + this.dim);
+        return result;
     }
 }
