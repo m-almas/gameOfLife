@@ -4,7 +4,7 @@
 let grid;
 let width = 400;
 let height = 400;
-let resolution = 40;
+let resolution = 20;
 let running = false;
 
 function setup() {
@@ -47,11 +47,21 @@ function createCellGrid(rows, cols, dim) {
     return result;
 }
 
-function mouseClicked() {
+function mousePressed() {
     if (running) return;
     grid.forEach(row => {
         row.forEach(cell => {
             cell.clicked(mouseX, mouseY);
+        })
+    })
+    redraw()
+}
+
+function mouseDragged() {
+    if (running) return;
+    grid.forEach(row => {
+        row.forEach(cell => {
+            cell.dragged(mouseX, mouseY);
         })
     })
     redraw()
