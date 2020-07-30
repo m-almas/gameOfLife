@@ -9,7 +9,8 @@ let resolution = 10;
 let running = false;
 
 function setup() {
-    createCanvas(width, height); // this is hard coded
+    const canvas = createCanvas(width, height); // this is hard coded
+    canvas.parent('canvas')
     grid = createCellGrid(width / resolution, height / resolution, resolution);
     nextState = createCellGrid(width / resolution, height / resolution, resolution);
     frameRate(5);
@@ -116,4 +117,8 @@ function mouseDragged() {
         })
     })
     redraw()
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
