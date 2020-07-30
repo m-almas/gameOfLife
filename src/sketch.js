@@ -7,19 +7,25 @@ let width = 400;
 let height = 400;
 let resolution = 10;
 let running = false;
+let sizeFactor = 0.8
 
 function setup() {
+    width = Math.floor(windowWidth*sizeFactor)
+    height = Math.floor(windowHeight*sizeFactor)
     const canvas = createCanvas(width, height); // this is hard coded
     canvas.parent('canvas')
-    grid = createCellGrid(width / resolution, height / resolution, resolution);
-    nextState = createCellGrid(width / resolution, height / resolution, resolution);
+    
+    grid = createCellGrid(Math.floor(width / resolution), Math.floor(height / resolution), resolution);
+    nextState = createCellGrid(Math.floor(width / resolution), Math.floor(height / resolution), resolution);
     frameRate(5);
     buttonStart = createButton('start');
+    // button.addClass("btn")
     buttonStart.mousePressed(() => {
         running = true;
         loop();
     })
     buttonStop = createButton('stop');
+    // button.addClass("btn")
     buttonStop.mousePressed(() => {
         running = false;
         noLoop();
@@ -87,9 +93,11 @@ function countNeighbor(i, j, grid) {
 
 function createCellGrid(rows, cols, dim) {
     let result = new Array(rows);
+    
     for (let i = 0; i < rows; i++) {
-        result[i] = new Array(cols);
+      result[i] = new Array(cols);
     }
+    
     //setting up empty objects
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
@@ -120,5 +128,5 @@ function mouseDragged() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth*sizeFactor, windowHeight*sizeFactor);
 }
