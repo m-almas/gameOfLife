@@ -19,15 +19,23 @@ function setup() {
     nextState = createCellGrid(Math.floor(width / resolution), Math.floor(height / resolution), resolution);
     frameRate(5);
     buttonStart = createButton('start');
-    // button.addClass("btn")
+    buttonStart.parent('buttons')
+    
+    
     buttonStart.mousePressed(() => {
         running = true;
+        buttonStart.addClass('active')
+        buttonStop.removeClass('active')
         loop();
     })
     buttonStop = createButton('stop');
-    // button.addClass("btn")
+    buttonStop.parent('buttons')
+    
+    
     buttonStop.mousePressed(() => {
         running = false;
+        buttonStart.removeClass('active')
+        buttonStop.addClass('active')
         noLoop();
     })
     noLoop();
