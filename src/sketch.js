@@ -1,3 +1,30 @@
+let blinker = [
+    [1,1,1]
+]
+
+let beacon = [
+    [1,1,0,0],
+    [1,1,0,0],
+    [0,0,1,1],
+    [0,0,1,1]
+]
+
+let pulsar = [
+    [0,0,1,1,1,0,0,0,1,1,1,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,0,0,0,0,1,0,1,0,0,0,0,1],
+    [1,0,0,0,0,1,0,1,0,0,0,0,1],
+    [1,0,0,0,0,1,0,1,0,0,0,0,1],
+    [0,0,1,1,1,0,0,0,1,1,1,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,1,1,1,0,0,0,1,1,1,0,0],
+    [1,0,0,0,0,1,0,1,0,0,0,0,1],
+    [1,0,0,0,0,1,0,1,0,0,0,0,1],
+    [1,0,0,0,0,1,0,1,0,0,0,0,1],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,1,1,1,0,0,0,1,1,1,0,0]
+]
+
 let grid
 let nextState
 let width = 400
@@ -18,6 +45,8 @@ function setup() {
     Math.floor(height / resolution),
     resolution
   )
+    setInitialState(grid, pulsar)
+
   nextState = createCellGrid(
     Math.floor(width / resolution),
     Math.floor(height / resolution),
@@ -160,4 +189,22 @@ function mouseDragged() {
 
 function windowResized() {
   resizeCanvas(windowWidth * sizeFactor, windowHeight * sizeFactor)
+}
+
+function setInitialState(grid, state){
+    //clear grid
+    grid.forEach(row => {
+        row.forEach( cell => {
+            cell.setLife(0)
+        })
+    })
+    let stateRow = state.length
+    let stateCol = state[0].length
+    let gridRowStart = Math.floor(grid.length/2 - stateRow/2)
+    let gridColStart = Math.floor(grid[0].length/2 - stateCol/2)
+    for(let i = 0; i < stateRow; i++){
+        for(let j = 0; j < stateCol; j++){
+            grid[gridRowStart + i][gridColStart + j].setLife(state[i][j])
+        }
+    }
 }
