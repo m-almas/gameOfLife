@@ -7,157 +7,178 @@ let running = false
 let sizeFactor = 0.8
 let speed = 5
 
+const startSvg = `<svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M8 5v14l11-7z" />
+        </svg>`
+const stopSvg = `<svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path d="M6 6h12v12H6z" />
+        </svg>`
+
 function setup() {
-  width = Math.floor(windowWidth * sizeFactor)
-  height = Math.floor(windowHeight * sizeFactor)
-  const canvas = createCanvas(width, height) // this is hard coded
-  canvas.parent('canvas')
+    width = Math.floor(windowWidth * sizeFactor)
+    height = Math.floor(windowHeight * sizeFactor)
+    const canvas = createCanvas(width, height) // this is hard coded
+    canvas.parent('canvas')
 
-  grid = createCellGrid(
-    Math.floor(width / resolution),
-    Math.floor(height / resolution),
-    resolution
-  )
-  nextState = createCellGrid(
-    Math.floor(width / resolution),
-    Math.floor(height / resolution),
-    resolution
-  )
-  frameRate(speed)
-
-  buttonPlay = select('#play')
-  buttonPlay.mousePressed(() => {
-    if (running) {
-      buttonPlay.html('Start')
-      running = false
-      noLoop()
-    } else {
-      buttonPlay.html('Stop')
-      running = true
-      loop()
-    }
-  })
-
-  buttonStep = select('#step')
-  buttonStep.mousePressed(() => {
-    if (!running) {
-      step()
-    }
-  })
-
-  buttonSpeedup = select('#speedup')
-  buttonSpeedup.mousePressed(() => {
-    speed *= 2
+    grid = createCellGrid(
+        Math.floor(width / resolution),
+        Math.floor(height / resolution),
+        resolution
+    )
+    nextState = createCellGrid(
+        Math.floor(width / resolution),
+        Math.floor(height / resolution),
+        resolution
+    )
     frameRate(speed)
-  })
 
-  buttonSpeeddown = select('#speeddown')
-  buttonSpeeddown.mousePressed(() => {
-    speed /= 2
-    frameRate(speed)
-  })
+    buttonPlay = select('#play')
+    buttonPlay.mousePressed(() => {
+        if (running) {
+            running = false
+            noLoop()
+            buttonPlay.html(startSvg)
+            buttonPlay.removeClass('active')
+        } else {
+            running = true
+            loop()
+            buttonPlay.html(stopSvg)
+            buttonPlay.addClass('active')
+        }
+    })
 
-  noLoop()
-  redraw()
+    buttonStep = select('#step')
+    buttonStep.mousePressed(() => {
+        if (!running) {
+            step()
+        }
+    })
+
+    buttonSpeedup = select('#speedup')
+    buttonSpeedup.mousePressed(() => {
+        speed *= 2
+        frameRate(speed)
+    })
+
+    buttonSpeeddown = select('#speeddown')
+    buttonSpeeddown.mousePressed(() => {
+        speed /= 2
+        frameRate(speed)
+    })
+
+    noLoop()
+    redraw()
 }
 
 function draw() {
-  background(0)
-  grid.forEach(row => {
-    row.forEach(cell => {
-      cell.show()
+    background(0)
+    grid.forEach(row => {
+        row.forEach(cell => {
+            cell.show()
+        })
     })
-  })
-  if (running) {
-    step()
-  }
+    if (running) {
+        step()
+    }
 }
 
 function step() {
-  computeNextState(grid, nextState)
-  temp = grid
-  grid = nextState
-  nextState = temp
-  redraw()
+    computeNextState(grid, nextState)
+    temp = grid
+    grid = nextState
+    nextState = temp
+    redraw()
 }
 
 function computeNextState(grid, next) {
-  let rows = grid.length
-  let cols = grid[0].length
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      let count = countNeighbor(i, j, grid)
-      if (grid[i][j].isAlive == 1) {
-        if (count < 2) {
-          next[i][j].setLife(0)
-        } else if (count < 4) {
-          next[i][j].setLife(1)
-        } else {
-          next[i][j].setLife(0)
+    let rows = grid.length
+    let cols = grid[0].length
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            let count = countNeighbor(i, j, grid)
+            if (grid[i][j].isAlive == 1) {
+                if (count < 2) {
+                    next[i][j].setLife(0)
+                } else if (count < 4) {
+                    next[i][j].setLife(1)
+                } else {
+                    next[i][j].setLife(0)
+                }
+            } else {
+                if (count == 3) {
+                    next[i][j].setLife(1)
+                } else {
+                    next[i][j].setLife(0)
+                }
+            }
         }
-      } else {
-        if (count == 3) {
-          next[i][j].setLife(1)
-        } else {
-          next[i][j].setLife(0)
-        }
-      }
     }
-  }
 }
 
 function countNeighbor(i, j, grid) {
-  let rows = grid.length
-  let cols = grid[0].length
-  let x_dir = [0, -1, -1, 0, 1, 1, -1, 1]
-  let y_dir = [-1, 0, -1, 1, 0, 1, 1, -1]
-  let result = 0
-  for (let k = 0; k < 8; k++) {
-    let x = i + x_dir[k]
-    let y = j + y_dir[k]
-    x = (x + rows) % rows
-    y = (y + cols) % cols
-    result += grid[x][y].isAlive
-  }
-  return result
+    let rows = grid.length
+    let cols = grid[0].length
+    let x_dir = [0, -1, -1, 0, 1, 1, -1, 1]
+    let y_dir = [-1, 0, -1, 1, 0, 1, 1, -1]
+    let result = 0
+    for (let k = 0; k < 8; k++) {
+        let x = i + x_dir[k]
+        let y = j + y_dir[k]
+        x = (x + rows) % rows
+        y = (y + cols) % cols
+        result += grid[x][y].isAlive
+    }
+    return result
 }
 
 function createCellGrid(rows, cols, dim) {
-  let result = new Array(rows)
+    let result = new Array(rows)
 
-  for (let i = 0; i < rows; i++) {
-    result[i] = new Array(cols)
-  }
-
-  //setting up empty objects
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      result[i][j] = new Cell(0, { x: i * dim, y: j * dim }, dim)
+    for (let i = 0; i < rows; i++) {
+        result[i] = new Array(cols)
     }
-  }
-  return result
+
+    //setting up empty objects
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            result[i][j] = new Cell(0, { x: i * dim, y: j * dim }, dim)
+        }
+    }
+    return result
 }
 
 function mousePressed() {
-  if (running) return
-  grid.forEach(row => {
-    row.forEach(cell => {
-      cell.clicked(mouseX, mouseY)
+    if (running) return
+    grid.forEach(row => {
+        row.forEach(cell => {
+            cell.clicked(mouseX, mouseY)
+        })
     })
-  })
-  redraw()
+    redraw()
 }
 
 function mouseDragged() {
-  if (running) return
-  grid.forEach(row => {
-    row.forEach(cell => {
-      cell.dragged(mouseX, mouseY)
+    if (running) return
+    grid.forEach(row => {
+        row.forEach(cell => {
+            cell.dragged(mouseX, mouseY)
+        })
     })
-  })
-  redraw()
+    redraw()
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth * sizeFactor, windowHeight * sizeFactor)
+    resizeCanvas(windowWidth * sizeFactor, windowHeight * sizeFactor)
 }
