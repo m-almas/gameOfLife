@@ -23,6 +23,12 @@ let pulsar = [
     [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
 ]
 
+const patternsMap = {
+    blinker,
+    beacon,
+    pulsar,
+}
+
 let grid
 let nextState
 let width = 400
@@ -33,6 +39,36 @@ let widthFactor = 1
 let heightFactor = 0.8
 let speed = 5
 
+// Patterns Modal
+const outerModal = document.querySelector('.outer-modal')
+const innerModal = outerModal.querySelector('.inner-modal')
+const closeModalBtn = innerModal.querySelector('#close-modal')
+const patternBtns = innerModal.querySelectorAll('.btn-pattern')
+// when pattern is chosen:
+patternBtns.forEach(btn =>
+    btn.addEventListener('click', e => {
+        const pattern = e.target.dataset['pattern'] // get pattern name
+        setInitialState(grid, patternsMap[pattern]) // get pattern by name from patterns map
+        draw()
+        closeModal()
+    })
+)
+
+function closeModal() {
+    outerModal.classList.remove('open')
+}
+
+closeModalBtn.addEventListener('click', closeModal)
+
+// close modal when clicked outside of modal
+outerModal.addEventListener('click', e => {
+    const isOutside = !e.target.closest('.inner-modal')
+    if (isOutside) {
+        closeModal()
+    }
+})
+
+// Play button icons
 const startSvg = `<svg
           xmlns="http://www.w3.org/2000/svg"
           height="24"
@@ -114,11 +150,11 @@ function setup() {
         }
     })
 
-    buttonChoosePatter = select('#patterns')
-    buttonChoosePatter.mousePressed(() => {
+    buttonChoosePattern = select('#patterns')
+    buttonChoosePattern.mousePressed(() => {
         running = false
         noLoop()
-        setInitialState(grid, pulsar)
+        outerModal.classList.add('open')
         buttonPlay.html(startSvg)
         buttonPlay.removeClass('active')
     })

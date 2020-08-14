@@ -6,7 +6,6 @@
         <title>Game of Life</title>
         <link rel="stylesheet" href="./style.css" />
         <script src="../p5.js"></script>
-        <script src="./sketch.js"></script>
         <script src="./objects/cell.js"></script>
     </head>
 
@@ -77,7 +76,10 @@
         </div>
         <div class="outer-modal">
             <div class="inner-modal">
-                <h2>Choose pattern to load <button>close</button></h2>
+                <h2>
+                    Choose pattern to load
+                    <button id="close-modal">close</button>
+                </h2>
 
                 <div class="patterns-list">
                     <img
@@ -92,13 +94,18 @@
                         src="./assets/Game_of_life_pulsar.gif"
                         alt="Pulsar pattern"
                     />
-                    <button>
+                    <button class="btn-pattern" data-pattern="blinker">
                         blinker
                     </button>
-                    <button>beacon</button>
-                    <button>pulsar</button>
+                    <button class="btn-pattern" data-pattern="beacon">
+                        beacon
+                    </button>
+                    <button class="btn-pattern" data-pattern="pulsar">
+                        pulsar
+                    </button>
                 </div>
             </div>
         </div>
+        <script src="./sketch.js"></script>
     </body>
 </html>
