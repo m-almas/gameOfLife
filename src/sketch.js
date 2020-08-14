@@ -40,6 +40,7 @@ let heightFactor = 0.8
 let speed = 5
 
 // Patterns Modal
+let isModalOpen = false
 const outerModal = document.querySelector('.outer-modal')
 const innerModal = outerModal.querySelector('.inner-modal')
 const closeModalBtn = innerModal.querySelector('#close-modal')
@@ -55,6 +56,7 @@ patternBtns.forEach(btn =>
 )
 
 function closeModal() {
+    isModalOpen = false
     outerModal.classList.remove('open')
 }
 
@@ -154,6 +156,7 @@ function setup() {
     buttonChoosePattern.mousePressed(() => {
         running = false
         noLoop()
+        isModalOpen = true
         outerModal.classList.add('open')
         buttonPlay.html(startSvg)
         buttonPlay.removeClass('active')
@@ -241,7 +244,7 @@ function createCellGrid(rows, cols, dim) {
 }
 
 function mousePressed() {
-    if (running) return
+    if (running || isModalOpen) return
     grid.forEach(row => {
         row.forEach(cell => {
             cell.clicked(mouseX, mouseY)
@@ -251,7 +254,7 @@ function mousePressed() {
 }
 
 function mouseDragged() {
-    if (running) return
+    if (running || isModalOpen) return
     grid.forEach(row => {
         row.forEach(cell => {
             cell.dragged(mouseX, mouseY)
