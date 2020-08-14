@@ -1,12 +1,10 @@
-let blinker = [
-    [1, 1, 1]
-]
+let blinker = [[1, 1, 1]]
 
 let beacon = [
     [1, 1, 0, 0],
     [1, 1, 0, 0],
     [0, 0, 1, 1],
-    [0, 0, 1, 1]
+    [0, 0, 1, 1],
 ]
 
 let pulsar = [
@@ -22,7 +20,7 @@ let pulsar = [
     [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0]
+    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
 ]
 
 let grid
@@ -114,6 +112,15 @@ function setup() {
         } else {
             buttonSpeedUp.removeAttribute('disabled')
         }
+    })
+
+    buttonChoosePatter = select('#patterns')
+    buttonChoosePatter.mousePressed(() => {
+        running = false
+        noLoop()
+        setInitialState(grid, pulsar)
+        buttonPlay.html(startSvg)
+        buttonPlay.removeClass('active')
     })
 
     noLoop()
