@@ -1,114 +1,119 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #fff;
-  text-align: center;
-  padding: 0;
-  margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    text-align: center;
+    padding: 0;
+    margin: 0;
 }
 
 #canvas {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .buttons {
-  /* display: grid; */
-  margin-top: 2rem;
-  grid-template-columns: repeat(2, 50px);
-  gap: 0.8rem 1.2rem;
-  justify-content: center;
-  display: inline-grid;
-  text-align: left;
+    /* display: grid; */
+    margin-top: 2rem;
+    grid-template-columns: repeat(2, 50px);
+    gap: 0.8rem 1.2rem;
+    justify-content: center;
+    display: inline-grid;
+    text-align: left;
 }
 
 .buttons + .buttons {
-  margin-left: 3rem;
+    margin-left: 3rem;
 }
 .buttons > label {
-  font-size: 12px;
-  color: #a8a8a8;
-  text-transform: uppercase;
-  grid-column: 1 / span 2;
-  padding-left: 3px;
+    font-size: 12px;
+    color: #a8a8a8;
+    text-transform: uppercase;
+    grid-column: 1 / span 2;
+    padding-left: 3px;
 }
 
 @keyframes active {
-  from {
-    box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
-      0 -6px 4px #fefefe, inset 0 0 10px 0px rgb(181, 20, 255, 0.6);
-  }
+    from {
+        box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+            0 -6px 4px #fefefe, inset 0 0 10px 0px rgb(181, 20, 255, 0.6);
+    }
 
-  to {
-    box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
-      0 -6px 4px #fefefe, inset 0 0 3px 3px #cecfd1;
-  }
+    to {
+        box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+            0 -6px 4px #fefefe, inset 0 0 3px 3px #cecfd1;
+    }
 }
 
 .active {
-  animation: active 0.9s alternate infinite;
+    animation: active 0.9s alternate infinite;
 }
 
 button {
-  -webkit-appearance: none;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  background-image: linear-gradient(to top, #d8d9db 0%, #fff 80%, #fdfdfd 100%);
-  border-radius: 1000px;
-  border: 1px solid #8f9092;
-  box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
-    0 -6px 4px #fefefe, inset 0 0 3px 0 #cecfd1;
-  transition: all 0.2s ease;
+    -webkit-appearance: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background-image: linear-gradient(
+        to top,
+        #d8d9db 0%,
+        #fff 80%,
+        #fdfdfd 100%
+    );
+    border-radius: 1000px;
+    border: 1px solid #8f9092;
+    box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+        0 -6px 4px #fefefe, inset 0 0 3px 0 #cecfd1;
+    transition: all 0.2s ease;
 }
 
 button::-moz-focus-inner {
-  border: 0;
+    border: 0;
 }
 
 button > * {
-  transition: transform 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 button:hover:not([disabled]) {
-  box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
-    0 -6px 4px #fefefe, inset 0 0 3px 3px #cecfd1;
+    box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+        0 -6px 4px #fefefe, inset 0 0 3px 3px #cecfd1;
 }
 
 button:hover:not([disabled]) > * {
-  transform: scale(0.975);
+    transform: scale(0.975);
 }
 
 button:focus:not(:active) {
-  outline: none;
+    outline: none;
 }
 
 button:active:not([disabled]) {
-  box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
-    0 -6px 4px #fefefe, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+    box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+        0 -6px 4px #fefefe, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
 }
 
 button:active:not([disabled]) > * {
-  transform: scale(0.95);
+    transform: scale(0.95);
 }
 
 button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 button svg {
-  margin-top: 3px;
-  width: 30px;
-  height: 30px;
-  fill: #606060;
+    margin-top: 3px;
+    width: 30px;
+    height: 30px;
+    fill: #606060;
 }
