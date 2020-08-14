@@ -13,3 +13,6 @@ This project is implemetation of interesting game called "Game of Life". You can
 
 # Contributors
 [Pupye](https://github.com/Pupye) and [Nurbolatk](https://github.com/nurbolatk) 
+
+# Credits
+Special thanks to [Coding train](https://thecodingtrain.com/) Checkout his videos, he is gifted teacher.
