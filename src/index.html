@@ -14,7 +14,7 @@
         <div id="canvas"></div>
         <div class="buttons">
             <label>Game controls</label>
-            <button id="play">
+            <button class="btn-three-d" id="play">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"
@@ -25,7 +25,7 @@
                     <path d="M8 5v14l11-7z" />
                 </svg>
             </button>
-            <button id="step">
+            <button class="btn-three-d" id="step">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"
@@ -36,7 +36,7 @@
                     <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
                 </svg>
             </button>
-            <button id="patterns">
+            <button class="btn-three-d" id="patterns">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"
@@ -52,7 +52,7 @@
         </div>
         <div class="buttons">
             <label>Speed</label>
-            <button id="speed-up">
+            <button class="btn-three-d" id="speed-up">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"
@@ -63,7 +63,7 @@
                     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 </svg>
             </button>
-            <button id="speed-down">
+            <button class="btn-three-d" id="speed-down">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"
@@ -74,6 +74,31 @@
                     <path d="M19 13H5v-2h14v2z" />
                 </svg>
             </button>
+        </div>
+        <div class="outer-modal">
+            <div class="inner-modal">
+                <h2>Choose pattern to load <button>close</button></h2>
+
+                <div class="patterns-list">
+                    <img
+                        src="./assets/Game_of_life_blinker.gif"
+                        alt="Blinker pattern"
+                    />
+                    <img
+                        src="./assets/Game_of_life_beacon.gif"
+                        alt="Beacon pattern"
+                    />
+                    <img
+                        src="./assets/Game_of_life_pulsar.gif"
+                        alt="Pulsar pattern"
+                    />
+                    <button>
+                        blinker
+                    </button>
+                    <button>beacon</button>
+                    <button>pulsar</button>
+                </div>
+            </div>
         </div>
     </body>
 </html>

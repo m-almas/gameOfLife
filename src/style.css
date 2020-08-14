@@ -53,7 +53,7 @@ body {
     animation: active 0.9s alternate infinite;
 }
 
-button {
+.btn-three-d {
     -webkit-appearance: none;
     user-select: none;
     display: flex;
@@ -76,44 +76,78 @@ button {
     transition: all 0.2s ease;
 }
 
-button::-moz-focus-inner {
+.btn-three-d::-moz-focus-inner {
     border: 0;
 }
 
-button > * {
+.btn-three-d > * {
     transition: transform 0.2s ease;
 }
 
-button:hover:not([disabled]) {
+.btn-three-d:hover:not([disabled]) {
     box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
         0 -6px 4px #fefefe, inset 0 0 3px 3px #cecfd1;
 }
 
-button:hover:not([disabled]) > * {
+.btn-three-d:hover:not([disabled]) > * {
     transform: scale(0.975);
 }
 
-button:focus:not(:active) {
+.btn-three-d:focus:not(:active) {
     outline: none;
 }
 
-button:active:not([disabled]) {
+.btn-three-d:active:not([disabled]) {
     box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
         0 -6px 4px #fefefe, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
 }
 
-button:active:not([disabled]) > * {
+.btn-three-d:active:not([disabled]) > * {
     transform: scale(0.95);
 }
 
-button:disabled {
+.btn-three-d:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
-button svg {
+.btn-three-d svg {
     margin-top: 3px;
     width: 30px;
     height: 30px;
     fill: #606060;
+}
+
+.outer-modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.inner-modal {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 3px;
+}
+
+.inner-modal h2 {
+    margin: 0 0 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patterns-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: baseline;
+    justify-items: center;
 }
