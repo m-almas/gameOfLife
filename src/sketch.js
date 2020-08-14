@@ -67,7 +67,7 @@ function setup() {
     }
   })
 
-  buttonSpeedUp = select('#speedup')
+  buttonSpeedUp = select('#speed-up')
   buttonSpeedUp.mousePressed(() => {
     speed *= 2
     frameRate(speed)
@@ -78,7 +78,7 @@ function setup() {
     }
   })
 
-  buttonSpeedDown = select('#speeddown')
+  buttonSpeedDown = select('#speed-down')
   buttonSpeedDown.mousePressed(() => {
     speed /= 2
     frameRate(speed)
