@@ -106,6 +106,7 @@ function setup() {
         Math.floor(height / resolution),
         resolution
     )
+    //randomizeGrid(grid)
     frameRate(speed)
 
     buttonPlay = select('#play')
@@ -283,4 +284,12 @@ function setInitialState(grid, state) {
             grid[gridRowStart + i][gridColStart + j].setLife(state[i][j])
         }
     }
+}
+
+function randomizeGrid(grid){
+    grid.forEach(row => {
+        row.forEach(cell => {
+            cell.setLife(Math.floor(Math.random()*2))//random between 1, 0
+        })
+    })
 }
