@@ -1,39 +1,8 @@
-let blinker = [[1, 1, 1]]
-
-let beacon = [
-    [1, 1, 0, 0],
-    [1, 1, 0, 0],
-    [0, 0, 1, 1],
-    [0, 0, 1, 1],
-]
-
-let pulsar = [
-    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0],
-]
-
-const patternsMap = {
-    blinker,
-    beacon,
-    pulsar,
-}
-
 let grid
 let nextState
 let width = 400
 let height = 400
-let resolution = 10
+let resolution = 15
 let running = false
 let widthFactor = 1
 let heightFactor = 0.8
@@ -44,10 +13,27 @@ let isModalOpen = false
 const outerModal = document.querySelector('.outer-modal')
 const innerModal = outerModal.querySelector('.inner-modal')
 const closeModalBtn = innerModal.querySelector('#close-modal')
-const patternBtns = innerModal.querySelectorAll('.btn-pattern')
+
+// init patterns inside modal
+const patternsList = innerModal.querySelector('.patterns-list')
+const patternBtnHTML = pattern => `
+<div class="patterns-list-item">
+  <img src="./assets/${pattern}.gif" alt="${pattern} pattern" />
+  <button class="btn-pattern" data-pattern="${pattern}">
+    ${pattern}
+  </button>
+</div>
+`
+patternsList.innerHTML = Object.keys(patternsMap).reduce(
+    (list, pattern) => `${list} ${patternBtnHTML(pattern)}`,
+    ''
+)
+
 // when pattern is chosen:
+const patternBtns = innerModal.querySelectorAll('.btn-pattern')
 patternBtns.forEach(btn =>
     btn.addEventListener('click', e => {
+        console.log('what')
         const pattern = e.target.dataset['pattern'] // get pattern name
         setInitialState(grid, patternsMap[pattern]) // get pattern by name from patterns map
         draw()
@@ -59,9 +45,7 @@ function closeModal() {
     isModalOpen = false
     outerModal.classList.remove('open')
 }
-
 closeModalBtn.addEventListener('click', closeModal)
-
 // close modal when clicked outside of modal
 outerModal.addEventListener('click', e => {
     const isOutside = !e.target.closest('.inner-modal')
@@ -69,6 +53,9 @@ outerModal.addEventListener('click', e => {
         closeModal()
     }
 })
+
+// Snackbar (alert)
+const snackbar = document.querySelector('.snackbar')
 
 // Play button icons
 const startSvg = `<svg
@@ -106,15 +93,22 @@ function setup() {
         Math.floor(height / resolution),
         resolution
     )
+
     frameRate(speed)
 
+    // Add listeners to buttons
     buttonPlay = select('#play')
+
+    function stopGame() {
+        running = false
+        noLoop()
+        buttonPlay.html(startSvg)
+        buttonPlay.removeClass('active')
+    }
+
     buttonPlay.mousePressed(() => {
         if (running) {
-            running = false
-            noLoop()
-            buttonPlay.html(startSvg)
-            buttonPlay.removeClass('active')
+            stopGame()
         } else {
             running = true
             loop()
@@ -154,12 +148,22 @@ function setup() {
 
     buttonChoosePattern = select('#patterns')
     buttonChoosePattern.mousePressed(() => {
-        running = false
-        noLoop()
+        stopGame()
         isModalOpen = true
         outerModal.classList.add('open')
-        buttonPlay.html(startSvg)
-        buttonPlay.removeClass('active')
+    })
+
+    buttonRandomPattern = select('#random-pattern')
+    buttonRandomPattern.mousePressed(() => {
+        randomizeGrid(grid)
+        redraw()
+    })
+
+    buttonEraseCanvas = select('#erase-canvas')
+    buttonEraseCanvas.mousePressed(() => {
+        stopGame()
+        clearGrid()
+        redraw()
     })
 
     noLoop()
@@ -243,18 +247,42 @@ function createCellGrid(rows, cols, dim) {
     return result
 }
 
+function handleMousePressed() {
+    // dont show snackbar and dont draw when modal is open
+    if (isModalOpen) return false
+    const isInsideCanvas =
+        0 < mouseX && mouseX <= width && 0 < mouseY && mouseY <= height
+    // dont show snackbar and dont draw if not inside canvas
+    if (isInsideCanvas) {
+        // if not running - draw, else show snackbar and don't draw
+        if (running) {
+            // dont show snackbar and dont draw if snackbar is already shown
+            if (snackbar.classList.contains('open')) return false
+            snackbar.classList.add('open')
+            setTimeout(() => {
+                snackbar.classList.remove('open')
+            }, 2500)
+            return false
+        } else {
+            return true
+        }
+    }
+    return false
+}
+
 function mousePressed() {
-    if (running || isModalOpen) return
-    grid.forEach(row => {
-        row.forEach(cell => {
-            cell.clicked(mouseX, mouseY)
+    if (handleMousePressed()) {
+        grid.forEach(row => {
+            row.forEach(cell => {
+                cell.clicked(mouseX, mouseY)
+            })
         })
-    })
-    redraw()
+        redraw()
+    }
 }
 
 function mouseDragged() {
-    if (running || isModalOpen) return
+    if (isModalOpen || running) return
     grid.forEach(row => {
         row.forEach(cell => {
             cell.dragged(mouseX, mouseY)
@@ -267,13 +295,16 @@ function windowResized() {
     resizeCanvas(windowWidth * widthFactor, windowHeight * heightFactor)
 }
 
-function setInitialState(grid, state) {
-    //clear grid
+function clearGrid() {
     grid.forEach(row => {
         row.forEach(cell => {
             cell.setLife(0)
         })
     })
+}
+
+function setInitialState(grid, state) {
+    clearGrid()
     let stateRow = state.length
     let stateCol = state[0].length
     let gridRowStart = Math.floor(grid.length / 2 - stateRow / 2)
@@ -283,4 +314,12 @@ function setInitialState(grid, state) {
             grid[gridRowStart + i][gridColStart + j].setLife(state[i][j])
         }
     }
+}
+
+function randomizeGrid(grid) {
+    grid.forEach(row => {
+        row.forEach(cell => {
+            cell.setLife(Math.floor(Math.random() * 2)) //random between 1, 0
+        })
+    })
 }
