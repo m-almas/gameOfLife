@@ -2,7 +2,7 @@ let grid
 let nextState
 let width = 400
 let height = 400
-let resolution = 10
+let resolution = 15
 let running = false
 let widthFactor = 1
 let heightFactor = 0.8
@@ -53,6 +53,9 @@ outerModal.addEventListener('click', e => {
         closeModal()
     }
 })
+
+// Snackbar (alert)
+const snackbar = document.querySelector('.snackbar')
 
 // Play button icons
 const startSvg = `<svg
@@ -153,12 +156,14 @@ function setup() {
     buttonRandomPattern = select('#random-pattern')
     buttonRandomPattern.mousePressed(() => {
         randomizeGrid(grid)
+        redraw()
     })
 
     buttonEraseCanvas = select('#erase-canvas')
     buttonEraseCanvas.mousePressed(() => {
         stopGame()
         clearGrid()
+        redraw()
     })
 
     noLoop()
@@ -242,18 +247,42 @@ function createCellGrid(rows, cols, dim) {
     return result
 }
 
-function mousePressed() {
-    if (running || isModalOpen) return
-    grid.forEach(row => {
-        row.forEach(cell => {
-            cell.clicked(mouseX, mouseY)
+function handleMousePressed() {
+    // dont show snackbar and dont draw when modal is open
+    if (isModalOpen) return false
+    const isInsideCanvas =
+        0 < mouseX && mouseX <= width && 0 < mouseY && mouseY <= height
+    // dont show snackbar and dont draw if not inside canvas
+    if (isInsideCanvas) {
+        // if not running - draw, else show snackbar and don't draw
+        if (running) {
+            // dont show snackbar and dont draw if snackbar is already shown
+            if (snackbar.classList.contains('open')) return false
+            snackbar.classList.add('open')
+            setTimeout(() => {
+                snackbar.classList.remove('open')
+            }, 2500)
+            return false
+        } else {
+            return true
+        }
+    }
+    return false
+}
+
+function mouseClicked() {
+    if (handleMousePressed()) {
+        grid.forEach(row => {
+            row.forEach(cell => {
+                cell.clicked(mouseX, mouseY)
+            })
         })
-    })
-    redraw()
+        redraw()
+    }
 }
 
 function mouseDragged() {
-    if (running || isModalOpen) return
+    if (isModalOpen || running) return
     grid.forEach(row => {
         row.forEach(cell => {
             cell.dragged(mouseX, mouseY)
