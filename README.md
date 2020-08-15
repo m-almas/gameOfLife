@@ -9,7 +9,7 @@ This project is implemetation of interesting game called "Game of Life". You can
   - The purpose of the [objects](./src/objects) is to define objects that participate in game. Currently it is only cell objects
   - You can choose and play with interesting predefined patterns or define your pattern. Read about patterns [here](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns) 
   - Technically this game runs on [torus](https://en.wikipedia.org/wiki/Torus). The bottom continues to the top and left continues to the right.
-  - You can enjoy the game at [link]()
+  - You can enjoy the game at [link](https://pupye.github.io/gameOfLife/src/index.html)
 
 # Contributors
 [Pupye](https://github.com/Pupye) and [Nurbolatk](https://github.com/nurbolatk) 
