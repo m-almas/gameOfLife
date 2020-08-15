@@ -1,5 +1,161 @@
-#canvas{
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+#canvas {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.buttons {
+    /* display: grid; */
+    margin-top: 2rem;
+    grid-template-columns: repeat(3, 50px);
+    gap: 0.8rem 1.2rem;
+    justify-content: center;
+    display: inline-grid;
+    text-align: left;
+}
+
+.buttons + .buttons {
+    margin-left: 3rem;
+}
+.buttons > label {
+    font-size: 12px;
+    color: #a8a8a8;
+    text-transform: uppercase;
+    grid-column: 1 / -1;
+    padding-left: 3px;
+}
+
+@keyframes active {
+    from {
+        box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+            0 -6px 4px #fefefe, inset 0 0 10px 0px rgb(181, 20, 255, 0.6);
+    }
+
+    to {
+        box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+            0 -6px 4px #fefefe, inset 0 0 3px 3px #cecfd1;
+    }
+}
+
+.active {
+    animation: active 0.9s alternate infinite;
+}
+
+.btn-three-d {
+    -webkit-appearance: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background-image: linear-gradient(
+        to top,
+        #d8d9db 0%,
+        #fff 80%,
+        #fdfdfd 100%
+    );
+    border-radius: 1000px;
+    border: 1px solid #8f9092;
+    box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+        0 -6px 4px #fefefe, inset 0 0 3px 0 #cecfd1;
+    transition: all 0.2s ease;
+}
+
+.btn-three-d::-moz-focus-inner {
+    border: 0;
+}
+
+.btn-three-d > * {
+    transition: transform 0.2s ease;
+}
+
+.btn-three-d:hover:not([disabled]) {
+    box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+        0 -6px 4px #fefefe, inset 0 0 3px 3px #cecfd1;
+}
+
+.btn-three-d:hover:not([disabled]) > * {
+    transform: scale(0.975);
+}
+
+.btn-three-d:focus:not(:active) {
+    outline: none;
+}
+
+.btn-three-d:active:not([disabled]) {
+    box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+        0 -6px 4px #fefefe, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+.btn-three-d:active:not([disabled]) > * {
+    transform: scale(0.95);
+}
+
+.btn-three-d:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-three-d svg {
+    margin-top: 3px;
+    width: 30px;
+    height: 30px;
+    fill: #606060;
+}
+
+.outer-modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.outer-modal.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.inner-modal {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 3px;
+}
+
+.inner-modal h2 {
+    margin: 0 0 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patterns-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: baseline;
+    justify-items: center;
 }
