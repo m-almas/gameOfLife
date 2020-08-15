@@ -270,7 +270,7 @@ function handleMousePressed() {
     return false
 }
 
-function mouseClicked() {
+function mousePressed() {
     if (handleMousePressed()) {
         grid.forEach(row => {
             row.forEach(cell => {
