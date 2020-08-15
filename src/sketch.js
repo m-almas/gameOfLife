@@ -13,9 +13,9 @@ let isModalOpen = false
 const outerModal = document.querySelector('.outer-modal')
 const innerModal = outerModal.querySelector('.inner-modal')
 const closeModalBtn = innerModal.querySelector('#close-modal')
-const patternsList = innerModal.querySelector('.patterns-list')
-const patternBtns = innerModal.querySelectorAll('.btn-pattern')
+
 // init patterns inside modal
+const patternsList = innerModal.querySelector('.patterns-list')
 const patternBtnHTML = pattern => `
 <div class="patterns-list-item">
   <img src="./assets/${pattern}.gif" alt="${pattern} pattern" />
@@ -24,15 +24,16 @@ const patternBtnHTML = pattern => `
   </button>
 </div>
 `
-const patternsListHTML = Object.keys(patternsMap).reduce(
+patternsList.innerHTML = Object.keys(patternsMap).reduce(
     (list, pattern) => `${list} ${patternBtnHTML(pattern)}`,
     ''
 )
-patternsList.innerHTML = patternsListHTML
 
 // when pattern is chosen:
+const patternBtns = innerModal.querySelectorAll('.btn-pattern')
 patternBtns.forEach(btn =>
     btn.addEventListener('click', e => {
+        console.log('what')
         const pattern = e.target.dataset['pattern'] // get pattern name
         setInitialState(grid, patternsMap[pattern]) // get pattern by name from patterns map
         draw()
@@ -44,9 +45,7 @@ function closeModal() {
     isModalOpen = false
     outerModal.classList.remove('open')
 }
-
 closeModalBtn.addEventListener('click', closeModal)
-
 // close modal when clicked outside of modal
 outerModal.addEventListener('click', e => {
     const isOutside = !e.target.closest('.inner-modal')
