@@ -90,16 +90,22 @@ function setup() {
         Math.floor(height / resolution),
         resolution
     )
-    //randomizeGrid(grid)
+
     frameRate(speed)
 
+    // Add listeners to buttons
     buttonPlay = select('#play')
+
+    function stopGame() {
+        running = false
+        noLoop()
+        buttonPlay.html(startSvg)
+        buttonPlay.removeClass('active')
+    }
+
     buttonPlay.mousePressed(() => {
         if (running) {
-            running = false
-            noLoop()
-            buttonPlay.html(startSvg)
-            buttonPlay.removeClass('active')
+            stopGame()
         } else {
             running = true
             loop()
@@ -139,17 +145,20 @@ function setup() {
 
     buttonChoosePattern = select('#patterns')
     buttonChoosePattern.mousePressed(() => {
-        running = false
-        noLoop()
+        stopGame()
         isModalOpen = true
         outerModal.classList.add('open')
-        buttonPlay.html(startSvg)
-        buttonPlay.removeClass('active')
     })
 
     buttonRandomPattern = select('#random-pattern')
     buttonRandomPattern.mousePressed(() => {
         randomizeGrid(grid)
+    })
+
+    buttonEraseCanvas = select('#erase-canvas')
+    buttonEraseCanvas.mousePressed(() => {
+        stopGame()
+        clearGrid()
     })
 
     noLoop()
@@ -257,13 +266,16 @@ function windowResized() {
     resizeCanvas(windowWidth * widthFactor, windowHeight * heightFactor)
 }
 
-function setInitialState(grid, state) {
-    //clear grid
+function clearGrid() {
     grid.forEach(row => {
         row.forEach(cell => {
             cell.setLife(0)
         })
     })
+}
+
+function setInitialState(grid, state) {
+    clearGrid()
     let stateRow = state.length
     let stateCol = state[0].length
     let gridRowStart = Math.floor(grid.length / 2 - stateRow / 2)
