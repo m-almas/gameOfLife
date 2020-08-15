@@ -12,98 +12,99 @@
 
     <body>
         <div id="canvas"></div>
-        <div class="buttons">
-            <label>Game controls</label>
-
-            <button class="btn-three-d" id="play">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24"
-                >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M8 5v14l11-7z" />
-                </svg>
-            </button>
-            <button class="btn-three-d" id="step">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24"
-                >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
-                </svg>
-            </button>
-            <button class="btn-three-d" id="erase-canvas">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24"
-                >
-                    <path d="M0 0h24v24H0V0z" fill="none" />
-                    <path
-                        d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"
-                    />
-                </svg>
-            </button>
-        </div>
-        <div class="buttons">
-            <label>Speed</label>
-            <button class="btn-three-d" id="speed-up">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24"
-                >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                </svg>
-            </button>
-            <button class="btn-three-d" id="speed-down">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24"
-                >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M19 13H5v-2h14v2z" />
-                </svg>
-            </button>
-        </div>
-        <div class="buttons">
-            <label>Patterns</label>
-            <button class="btn-three-d" id="patterns">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24"
-                >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path
-                        d="M19 5v14H5V5h14m1.1-2H3.9c-.5 0-.9.4-.9.9v16.2c0 .4.4.9.9.9h16.2c.4 0 .9-.5.9-.9V3.9c0-.5-.5-.9-.9-.9zM11 7h6v2h-6V7zm0 4h6v2h-6v-2zm0 4h6v2h-6zM7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7z"
-                    />
-                </svg>
-            </button>
-            <button class="btn-three-d" id="random-pattern">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24"
-                >
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path
-                        d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"
-                    />
-                </svg>
-            </button>
+        <div class="game-controls">
+            <div class="buttons">
+                <label>Game controls</label>
+                <button class="btn-three-d" id="play">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                    >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </button>
+                <button class="btn-three-d" id="step">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                    >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+                    </svg>
+                </button>
+                <button class="btn-three-d" id="erase-canvas">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                    >
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path
+                            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"
+                        />
+                    </svg>
+                </button>
+            </div>
+            <div class="buttons">
+                <label>Speed</label>
+                <button class="btn-three-d" id="speed-up">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                    >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                    </svg>
+                </button>
+                <button class="btn-three-d" id="speed-down">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                    >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M19 13H5v-2h14v2z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="buttons">
+                <label>Patterns</label>
+                <button class="btn-three-d" id="patterns">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                    >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M19 5v14H5V5h14m1.1-2H3.9c-.5 0-.9.4-.9.9v16.2c0 .4.4.9.9.9h16.2c.4 0 .9-.5.9-.9V3.9c0-.5-.5-.9-.9-.9zM11 7h6v2h-6V7zm0 4h6v2h-6v-2zm0 4h6v2h-6zM7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7z"
+                        />
+                    </svg>
+                </button>
+                <button class="btn-three-d" id="random-pattern">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                    >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"
+                        />
+                    </svg>
+                </button>
+            </div>
         </div>
         <div class="outer-modal">
             <div class="inner-modal">

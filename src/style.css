@@ -16,19 +16,26 @@ body {
     align-items: center;
 }
 
-.buttons {
-    /* display: grid; */
-    margin-top: 2rem;
-    grid-template-columns: repeat(3, 50px);
-    gap: 0.8rem 1.2rem;
+.game-controls {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
     justify-content: center;
+    margin: 2rem;
+    gap: 3rem;
+}
+
+.buttons {
     display: inline-grid;
+    grid-template-columns: repeat(2, 35px);
+    gap: 0.8rem 1.6rem;
+    justify-content: center;
     text-align: left;
 }
 
-.buttons + .buttons {
-    margin-left: 3rem;
+.buttons:first-of-type {
+    grid-template-columns: repeat(3, 35px);
 }
+
 .buttons > label {
     font-size: 12px;
     color: #a8a8a8;
@@ -176,5 +183,26 @@ body {
 @media (min-width: 666px) {
     .patterns-list {
         grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 666px) {
+    .game-controls {
+        gap: 1rem 1.5rem;
+        justify-items: center;
+    }
+
+    .buttons {
+        grid-template-columns: repeat(2, 35px);
+        gap: 0.8rem 0.6rem;
+    }
+
+    .buttons:first-of-type {
+        grid-template-columns: repeat(3, 35px);
+    }
+
+    .btn-three-d {
+        width: 40px;
+        height: 40px;
     }
 }
