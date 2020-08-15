@@ -1,4 +1,3 @@
-
 let grid
 let nextState
 let width = 400
@@ -14,7 +13,23 @@ let isModalOpen = false
 const outerModal = document.querySelector('.outer-modal')
 const innerModal = outerModal.querySelector('.inner-modal')
 const closeModalBtn = innerModal.querySelector('#close-modal')
+const patternsList = innerModal.querySelector('.patterns-list')
 const patternBtns = innerModal.querySelectorAll('.btn-pattern')
+// init patterns inside modal
+const patternBtnHTML = pattern => `
+<div class="patterns-list-item">
+  <img src="./assets/${pattern}.gif" alt="${pattern} pattern" />
+  <button class="btn-pattern" data-pattern="${pattern}">
+    ${pattern}
+  </button>
+</div>
+`
+const patternsListHTML = Object.keys(patternsMap).reduce(
+    (list, pattern) => `${list} ${patternBtnHTML(pattern)}`,
+    ''
+)
+patternsList.innerHTML = patternsListHTML
+
 // when pattern is chosen:
 patternBtns.forEach(btn =>
     btn.addEventListener('click', e => {
@@ -256,10 +271,10 @@ function setInitialState(grid, state) {
     }
 }
 
-function randomizeGrid(grid){
+function randomizeGrid(grid) {
     grid.forEach(row => {
         row.forEach(cell => {
-            cell.setLife(Math.floor(Math.random()*2))//random between 1, 0
+            cell.setLife(Math.floor(Math.random() * 2)) //random between 1, 0
         })
     })
 }

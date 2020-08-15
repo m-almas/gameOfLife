@@ -143,6 +143,9 @@ body {
     background-color: #fff;
     padding: 2rem;
     border-radius: 3px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
 }
 
 .inner-modal h2 {
@@ -151,11 +154,27 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+.inner-modal h2 button {
+    margin-left: 1rem;
+}
 
 .patterns-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
     align-items: baseline;
     justify-items: center;
+}
+
+.patterns-list-item {
+    display: grid;
+    grid-template-rows: 1fr;
+    row-gap: 0.6rem;
+    justify-items: center;
+}
+
+@media (min-width: 666px) {
+    .patterns-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
