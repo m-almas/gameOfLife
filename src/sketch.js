@@ -147,6 +147,11 @@ function setup() {
         buttonPlay.removeClass('active')
     })
 
+    buttonRandomPattern = select('#random-pattern')
+    buttonRandomPattern.mousePressed(() => {
+        randomizeGrid(grid)
+    })
+
     noLoop()
     redraw()
 }
