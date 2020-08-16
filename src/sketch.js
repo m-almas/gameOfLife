@@ -33,7 +33,6 @@ patternsList.innerHTML = Object.keys(patternsMap).reduce(
 const patternBtns = innerModal.querySelectorAll('.btn-pattern')
 patternBtns.forEach(btn =>
     btn.addEventListener('click', e => {
-        console.log('what')
         const pattern = e.target.dataset['pattern'] // get pattern name
         setInitialState(grid, patternsMap[pattern]) // get pattern by name from patterns map
         draw()
